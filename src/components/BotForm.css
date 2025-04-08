@@ -1,0 +1,30 @@
+
+
+.botButton svg{
+color: white;
+animation: neon1 1.5s ease-in-out infinite alternate;
+}
+
+.botButton{
+    background-color: #4362ee00;
+    border-radius: 5px;
+    padding: 5px;
+    border:none;
+    cursor: pointer;
+    background-color: #190D37;
+    border: solid 1px #1B133F;
+}
+
+.deleteBotButton svg{
+    color: white;
+
+}
+
+.deleteBotButton{
+    background-color: #4362ee00;
+    border-radius: 5px;
+    padding: 5px;
+    border:none;
+    cursor: pointer;
+    
+}

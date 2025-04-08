@@ -1,0 +1,51 @@
+.coin-display {
+    
+    border-radius: 10px;
+    color: white;
+    font-size: 13px;
+    text-align: center;
+    transition: background 0.5s ease; /* Transición suave para el fondo */
+    display: inline-block; /* Para que el contenedor se ajuste al contenido */
+    width: 280px;
+    padding: 8px;
+  }
+  
+  .user-id {
+    color: #00ffcc; /* Cyan */
+    font-weight: bold;
+  }
+  
+  .coin-name {
+    color: #ffcc00; /* Amarillo */
+    font-weight: bold;
+  }
+  
+  .market-cap {
+    color: #ff6699; /* Rosa */
+    font-weight: bold;
+  }
+
+  .meme-image{
+    width: 20px !important;
+    border-radius: 50%;
+    height: 20px !important;
+  }
+
+  .text-container{
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    text-align: center;
+    justify-content: center;
+  }
+
+
+  @media (max-width:670px){
+    .coin-display {
+    position: absolute;
+    top: 76px;
+    
+      margin-left: 40px;
+    }
+  }
+  

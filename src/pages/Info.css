@@ -1,0 +1,77 @@
+.infocont{
+    display:flex;
+    gap: 100px;
+    justify-content: center;
+    
+}
+
+
+.infocont img{ 
+width: 350px;
+height: 350px;
+}
+
+.datacard{
+    width: 400px;
+    padding: 10px;
+}
+
+.datacard h2{
+   margin-bottom: 20px;
+   font-size: 20px;
+   background: linear-gradient(to right, #4A00E0, #8E2DE2); /* Degradado de azul a morado */
+  -webkit-background-clip: text; /* Recorta el fondo al texto */
+  -webkit-text-fill-color: transparent; /* Hace que el texto sea transparente */
+  display: inline-block; /* Permite aplicar el degradado solo al texto */
+}
+
+.datacard p{
+    font-size: 12px;
+    color: grey;
+}
+
+
+@media(max-width:1441px){
+    .infocont{
+        display:grid;
+       grid-template-columns: 1fr 1fr;
+       justify-items: center;
+       grid-column-gap: 100px !important;
+    }
+    
+}
+
+@media(max-width:998px){
+    .infocont{
+        display:grid;
+       grid-template-columns: 1fr;
+    }
+
+    .infocont img{
+       border: solid 2px violet;
+       border-radius: 10px
+    }
+    
+}
+
+
+
+@media(max-width:400px){
+    .datacard{
+        width: 300px;
+        margin: 0 auto;
+    }
+
+    .datacard p{
+        width: 280px;
+      
+    }
+    
+    .infocont img{ 
+        width: 300px;
+        height: 310px;
+        
+      
+        }
+        
+}

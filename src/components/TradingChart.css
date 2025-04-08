@@ -1,0 +1,30 @@
+.buttonGraphOptions button{
+    background: linear-gradient(to right, #4A00E0, #8E2DE2);
+   
+    color: whitesmoke;
+    font-weight: bold;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    border-radius: 5px;
+    margin-top: 30px;
+}
+
+.buttonGraphOptions{
+display: flex;
+gap: 15px;
+}
+
+@media(max-width:681px){
+    .chart{
+        width: 400px;
+    }
+}
+
+@media(max-width:461px){
+    .chart{
+        width: 300px;
+       
+    }
+}

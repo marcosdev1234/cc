@@ -1,0 +1,375 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+html {
+  width: 100% !important;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: radial-gradient(
+      ellipse at center,
+      rgba(127, 0, 173, 0.6) 0%,
+      rgba(0, 0, 0, 0.8) 60%,
+      rgba(0, 0, 0, 1) 90%
+    ),
+    url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/31787/stars.jpg);
+  background-size: cover;
+  z-index: -5;
+  color: white;
+  font-family: "Monoton", monospace;
+  font-size: 2em;
+  overflow-y: auto; /* Permite el scroll vertical */
+}
+
+.fontAnimate {
+  animation: neon1 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes neon1 {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #ff11a7,
+      0 0 70px #ff11a7, 0 0 80px #ff11a7, 0 0 100px #ff11a7, 0 0 150px #ff1177;
+  }
+  to {
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #ff11a7,
+      0 0 35px #ff11a7, 0 0 40px #ff11a7, 0 0 50px #ff11a7, 0 0 75px #ff11a7;
+  }
+}
+.navbar-container {
+  width: 100%; /* Asegura que el contenedor del navbar ocupe el 100% del ancho */
+  background-color: rgba(20, 20, 40, 0.7); /* Agrega un fondo si es necesario */
+  padding: 10px 0; /* Agrega padding si es necesario */
+}
+
+.navBar {
+  border-bottom: solid 1px #6a42ec7e;
+  background-color: #030408;
+  height: 70px;
+  margin-bottom: 50px;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navBar img {
+  width: 230px;
+}
+
+@media (max-width: 670px) {
+  .navbar-container {
+    width: 100%; /* Asegura que el contenedor del navbar ocupe el 100% del ancho */
+    background-color: rgba(
+      20,
+      20,
+      40,
+      0.7
+    ); /* Agrega un fondo si es necesario */
+    padding: 10px 0; /* Agrega padding si es necesario */
+  }
+
+  .navBar {
+    display: flex;
+   
+    align-items: center;
+  }
+
+  .navBar img {
+    width: 180px;
+  }
+}
+
+.phantomButtonDiv {
+  margin-bottom: 30px;
+}
+
+.navBar a {
+  margin: 0 15px; /* Agrega margen entre los enlaces */
+  color: white; /* Establece el color del texto */
+  text-decoration: none; /* Elimina la decoración de los enlaces */
+}
+
+@keyframes layerupanim {
+  from {
+    height: 140px;
+  }
+  to {
+    height: 155px;
+  }
+}
+
+@keyframes layercorneranim {
+  from {
+    height: 400px;
+  }
+  to {
+    height: 540px;
+  }
+}
+
+.formContent {
+  margin: 0 auto !important;
+  display: flex !important;
+  justify-content: center !important;
+}
+
+.app-container {
+  min-height: 100vh;
+  position: relative;
+}
+
+.stars-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  bottom: 0;
+  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 800 800'%3E%3Cg fill='none' stroke='%23404' stroke-width='1'%3E%3Cpath d='M769 229L1037 260.9M927 880L731 737 520 660 309 538 40 599 295 764 126.5 879.5 40 599-197 493 102 382-31 229 126.5 79.5-69-63'/%3E%3Cpath d='M-31 229L237 261 390 382 603 493 308.5 537.5 101.5 381.5M370 905L295 764'/%3E%3Cpath d='M520 660L578 842 731 737 840 599 603 493 520 660 295 764 309 538 390 382 539 269 769 229 577.5 41.5 370 105 295 -36 126.5 79.5 237 261 102 382 40 599 -69 737 127 880'/%3E%3Cpath d='M520-140L578.5 42.5 731-63M603 493L539 269 237 261 370 105M902 382L539 269M390 382L102 382'/%3E%3Cpath d='M-222 42L126.5 79.5 370 105 539 269 577.5 41.5 927 80 769 229 902 382 603 493 731 737M295-36L577.5 41.5M578 842L295 764M40-201L127 80M102 382L-261 269'/%3E%3C/g%3E%3Cg fill='%23505'%3E%3Ccircle cx='769' cy='229' r='5'/%3E%3Ccircle cx='539' cy='269' r='5'/%3E%3Ccircle cx='603' cy='493' r='5'/%3E%3Ccircle cx='731' cy='737' r='5'/%3E%3Ccircle cx='520' cy='660' r='5'/%3E%3Ccircle cx='309' cy='538' r='5'/%3E%3Ccircle cx='295' cy='764' r='5'/%3E%3Ccircle cx='40' cy='599' r='5'/%3E%3Ccircle cx='102' cy='382' r='5'/%3E%3Ccircle cx='127' cy='80' r='5'/%3E%3Ccircle cx='370' cy='105' r='5'/%3E%3Ccircle cx='578' cy='42' r='5'/%3E%3Ccircle cx='237' cy='261' r='5'/%3E%3Ccircle cx='390' cy='382' r='5'/%3E%3C/g%3E%3C/svg%3E");
+  z-index: -1;
+  opacity: 0.8;
+  background-size: 400px 400px;
+  animation: moveStars 50s linear infinite; /* Animación infinita */
+}
+
+/* Definición de la animación */
+@keyframes moveStars {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 400px 400px; /* Desplaza el fondo hacia abajo y a la derecha */
+  }
+}
+
+.content-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center !important;
+  margin: 0 auto !important; /* Elimina margin-left: -400px */
+  z-index: 1;
+}
+
+.app-title {
+  font-size: 28px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 30px;
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(100, 100, 255, 0.5);
+}
+
+.form-container {
+  background-color: rgba(20, 20, 40, 0.7);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  border: 1px solid rgba(80, 80, 150, 0.3);
+  padding: 30px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.steps-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  position: relative;
+  width: 500px;
+  margin: 0 auto;
+}
+
+.steps-container::before {
+  content: "";
+  position: absolute;
+  top: 25px;
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  background-color: rgba(80, 80, 150, 0.3);
+  z-index: 0;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.step-number {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: rgba(30, 30, 60, 0.8);
+  border: 2px solid rgba(80, 80, 150, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #a0a0c0;
+}
+
+.step.active .step-number {
+  background-color: #6645ed;
+  border-color: rgba(100, 100, 255, 0.6);
+  color: #ffffff;
+}
+
+.step-text {
+  font-size: 14px;
+  color: #a0a0c0;
+}
+
+.step.active .step-text {
+  color: #ffffff;
+  animation: neon1 1.5s ease-in-out infinite alternate;
+}
+
+@media (max-width: 768px) {
+  .form-container {
+    padding: 20px;
+  }
+}
+
+.app-center {
+  display: flex;
+  justify-content: center;
+  /* margin-left: 350px; Elimina este margen */
+}
+
+.navBar {
+  width: 100%; /* Asegura que el navbar ocupe el 100% del ancho */
+  /* Añade otros estilos para el navbar si es necesario */
+}
+
+.step-2-content {
+  margin-top: 30px;
+  width: 600px;
+}
+
+@media (max-width: 700px) {
+  .step-2-content {
+    width: 400px;
+  }
+}
+
+@media (max-width: 600px) {
+  .step-2-content {
+    width: 300px;
+  }
+
+  .form-container {
+    width: 100%;
+  }
+
+  .steps-container {
+    width: 400px;
+  }
+
+  .steps-container {
+    width: 400px;
+  }
+
+  .step-text {
+    width: 80px;
+    text-align: center;
+  }
+}
+
+
+@media (max-width: 466px) {
+  
+
+  .steps-container {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    width: 300px;
+
+  }
+  
+  .steps-container::before {
+    content: "";
+    position: absolute;
+    top: 15px;
+    left: 10%;
+    right: 10%;
+    height: 2px;
+    background-color: rgba(80, 80, 150, 0.3);
+    z-index: 0;
+  }
+  
+  .step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .step-number {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: rgba(30, 30, 60, 0.8);
+    border: 2px solid rgba(80, 80, 150, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #a0a0c0;
+  }
+}
+
+
+@media (max-width: 927px) {
+  
+.form-container{
+  width: 600px;
+}
+}
+
+@media (max-width: 655px) {
+  .steps-container {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    width: 420px;
+
+  }
+  
+  .form-container{
+    width: 450px;
+  }
+  }
+
+  
+@media (max-width: 495px) {
+  .steps-container {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    width: 300px;
+
+  }
+  
+  .form-container{
+    width: 350px;
+  }
+  }
+
+
+
+  

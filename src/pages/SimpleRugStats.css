@@ -1,0 +1,87 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #0a0a1a;
+    color: white;
+  }
+  
+  .simplerug-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #0a0a1a;
+    border-radius: 10px;
+  }
+  
+  .back-button {
+    color: #6b7280;
+    cursor: pointer;
+    margin-bottom: 20px;
+    font-size: 14px;
+  }
+  
+  .statistics-card {
+    background-color: #111328;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .statistics-card h2 {
+    color: #4338ca;
+    margin-bottom: 20px;
+    font-size: 20px;
+  }
+  
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .stat-box {
+    background-color: #1e2030;
+    border-radius: 8px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .stat-label {
+    color: #6b7280;
+    font-size: 12px;
+    margin-bottom: 5px;
+  }
+  
+  .stat-value {
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .last-rugs-section {
+    background-color: #1e2030;
+    border-radius: 8px;
+    padding: 15px;
+  }
+  
+  .last-rugs-section h3 {
+    color: #6b7280;
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  
+  .no-rugs-message {
+    color: #6b7280;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .telegram-channel {
+    text-align: center;
+    color: #4338ca;
+    margin-top: 20px;
+    cursor: pointer;
+    font-size: 20px;
+  }

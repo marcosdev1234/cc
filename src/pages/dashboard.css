@@ -85,7 +85,7 @@
     left: 2px;
     right: 2px;
     bottom: 2px;
-    background: rgb(31, 41, 55); /* Match the card background */
+    background: rgba(31, 41, 55, 0.97); 
     border-radius: 10px; /* Slightly smaller radius to fit inside the border */
     z-index: -1; /* Behind the content but above the glow */
   }

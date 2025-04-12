@@ -1,0 +1,158 @@
+import React, { useState, useEffect } from 'react';
+import './rugHistory.css';
+import NavBar from '../components/NavBar';
+
+interface RunItem {
+  imageUrl: string;
+  title: string;
+  subtitle: string;
+  percentage: string;
+  isPositive: boolean;
+}
+
+export default function RugHistory() {
+  const coinNames = [
+    'Spartans of Vian',
+    'Lords of Nebula',
+    'Crypto Dragons',
+    'Moon Raiders',
+    'Starship Toks',
+  ];
+
+  // Estados
+  const [lastRuns, setLastRuns] = useState<RunItem[]>([]);
+  const [totalProfit, setTotalProfit] = useState(13047);
+  const [successfulRuns, setSuccessfulRuns] = useState(66); // Ahora es estado
+  const [showArrow, setShowArrow] = useState(false);
+  const [usedCoinNames, setUsedCoinNames] = useState<string[]>([]);
+
+  // Función para obtener una imagen de la API
+  const fetchMemeImage = async (): Promise<string> => {
+    try {
+      const response = await fetch('https://meme-api.com/gimme');
+      const data = await response.json();
+      return data.url;
+    } catch (error) {
+      console.error('Error fetching meme:', error);
+      return 'https://via.placeholder.com/150';
+    }
+  };
+
+  // Función para generar un porcentaje aleatorio (solo positivo)
+  const generateRandomPercentage = (): { percentage: string; isPositive: boolean } => {
+    const value = (Math.random() * 10).toFixed(2);
+    return { percentage: `+${value}%`, isPositive: true };
+  };
+
+  // Función para generar un nuevo item
+  const generateNewRunItem = async (): Promise<RunItem | null> => {
+    const availableCoins = coinNames.filter((name) => !usedCoinNames.includes(name));
+    if (availableCoins.length === 0) {
+      setUsedCoinNames([]);
+      return null;
+    }
+
+    const selectedCoin = availableCoins[Math.floor(Math.random() * availableCoins.length)];
+    const imageUrl = await fetchMemeImage();
+    const { percentage, isPositive } = generateRandomPercentage();
+
+    setUsedCoinNames((prev) => [...prev, selectedCoin]);
+
+    return {
+      imageUrl,
+      title: selectedCoin,
+      subtitle: 'SOL',
+      percentage,
+      isPositive,
+    };
+  };
+
+  // Función para actualizar lastRuns, totalProfit y successfulRuns
+  const updateRuns = async () => {
+    const newRun = await generateNewRunItem();
+    if (!newRun) return;
+
+    // Incrementar totalProfit (entre 1 y 5 SOL)
+    const increment = Math.floor(Math.random() * 5) + 1;
+    setTotalProfit((prev) => prev + increment);
+
+    // Incrementar successfulRuns
+    setSuccessfulRuns((prev) => prev + 1);
+
+    // Mostrar flecha y ocultarla después de 1 segundo
+    setShowArrow(true);
+    setTimeout(() => setShowArrow(false), 1000);
+
+    // Actualizar la lista
+    setLastRuns((prevRuns) => {
+      const updatedRuns = [newRun, ...prevRuns.slice(0, 2)];
+      return updatedRuns;
+    });
+  };
+
+  // Configurar intervalo con useEffect
+  useEffect(() => {
+    const initializeRuns = async () => {
+      const initialRuns: RunItem[] = [];
+      for (let i = 0; i < 3; i++) {
+        const run = await generateNewRunItem();
+        if (run) initialRuns.push(run);
+      }
+      setLastRuns(initialRuns);
+    };
+
+    initializeRuns();
+
+    const interval = setInterval(updateRuns, 4000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  // Formatear totalProfit
+  const formattedTotalProfit = totalProfit.toLocaleString();
+
+  return (
+
+    <>
+    <NavBar/>
+    <div className='dashboard__banner'>
+    <h4>Everything our users have earned by rugpulling innocent people 🚀</h4>
+    </div>
+    <div className="dashboard">
+      <div className="dashboard-grid">
+        <div className="card cardMove profit-card">
+          <div className="card-label">Total Profit</div>
+          <div className="card-value">
+            {formattedTotalProfit} SOL
+            {showArrow && <span className="profit-arrow">↑</span>}
+          </div>
+        </div>
+        <div className="card cardMove runs-card">
+          <div className="card-label">Successful Rugs</div>
+          <div className="card-value">{successfulRuns}</div>
+        </div>
+      </div>
+
+      <div className="card last-runs-card">
+        <div className="card-label">Last Rugs</div>
+        <div className="runs-list">
+          {lastRuns.map((run, index) => (
+            <div className="run-item" key={index}>
+              <div className="run-icon">
+                <img src={run.imageUrl} alt="Meme" className="icon-image" />
+              </div>
+              <div className="run-details">
+                <div className="run-title">{run.title}</div>
+                <div className="run-subtitle">{run.subtitle}</div>
+              </div>
+              <div className={`run-percentage ${run.isPositive ? 'positive' : 'negative'}`}>
+                {run.percentage}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+    </>
+  );
+}

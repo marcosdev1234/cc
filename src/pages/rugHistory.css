@@ -1,0 +1,180 @@
+.dashboard {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  
+  .dashboard-grid {
+    display: flex;
+    gap: 16px;
+    height: 100px;
+  
+  }
+
+  .profit-arrow{
+    color: greenyellow;
+  }
+
+  .icon-image{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+  .profit-card{
+    height: 100px;
+  }
+
+  .runs-card{
+    height: 100px;
+  }
+  
+
+
+
+  .card {
+    position: relative;
+    background-color: #141b2ddc;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .dashboard__banner{
+    background-color: #171d39a8;
+    text-align: center;
+    padding: 5px;
+    margin-bottom: 50px;
+  }
+
+  .cardMove::before{
+    content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(
+    45deg,
+    #ff00ff,
+    #00f6ff,
+    #00ff00,
+    #ff00ff,
+    #00f6ff
+  ); /* Colores neón: magenta, cian, verde */
+  background-size: 400%;
+  filter: blur(8px); /* Desenfoque para el efecto glow */
+  z-index: -1;
+  animation: neonGlow 8s linear infinite; /* Animación suave */
+}
+  
+@keyframes neonGlow {
+    0% {
+      background-position: 0% 50%;
+    }
+    100% {
+      background-position: 400% 50%;
+    }
+  }
+  
+  .card-label {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 8px;
+  }
+  
+  .card-value {
+    font-size: 24px;
+    font-weight: 600;
+    color: #fff;
+  }
+  
+  .last-runs-card {
+    margin-top: 16px;
+  }
+  
+  .runs-list {
+    margin-top: 16px;
+  }
+  
+  .run-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  
+  .run-item:last-child {
+    border-bottom: none;
+  }
+  
+  .run-icon {
+    margin-right: 16px;
+  }
+  
+  .icon-circle {
+    width: 36px;
+    height: 36px;
+    background-color: #1e2738;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: #fff;
+  }
+  
+  .run-details {
+    flex: 1;
+  }
+  
+  .run-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+  }
+  
+  .run-subtitle {
+    font-size: 12px;
+    color: #8b8fa3;
+    margin-top: 2px;
+  }
+  
+  .run-percentage {
+    font-size: 14px;
+    font-weight: 600;
+  }
+  
+  .positive {
+    color: #4caf50;
+  }
+  
+  .negative {
+    color: #f44336;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 600px) {
+    .dashboard-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .card-value {
+      font-size: 20px;
+    }
+  
+    .run-item {
+      padding: 10px 0;
+    }
+  
+    .icon-circle {
+      width: 30px;
+      height: 30px;
+    }
+  }
+  

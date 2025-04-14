@@ -11,14 +11,14 @@ export default function PhantomLogin({ onConnected }) {
       if (solana?.isPhantom) {
         const response = await solana.connect();
         const address = response.publicKey.toString();
-        console.log('Dirección obtenida de Phantom:', address); // Depuración
+        console.log('Direction of Phantom:', address); // Depuración
         setWalletAddress(address);
         onConnected(address);
       } else {
-        alert('Por favor instala la billetera Phantom');
+        alert('Please Install Phantom');
       }
     } catch (error) {
-      console.error('Error al conectar billetera:', error);
+      console.error('Error:', error);
     }
   };
 

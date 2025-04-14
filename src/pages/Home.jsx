@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Alert from '../components/Alert';
 import TokenForm from '../components/TokenForm';
 import PhantomLogin from '../components/PhantomLogin';
 import MetaMaskLogin from '../components/MetaMaskLogin';

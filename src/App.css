@@ -4,7 +4,13 @@
   box-sizing: border-box;
   font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
-
+.connect-button{
+  background-color: #03040890;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  border-color: #6645ed;
+}
 html {
   width: 100% !important;
   margin: 0;

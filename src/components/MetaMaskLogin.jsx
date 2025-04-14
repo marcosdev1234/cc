@@ -47,7 +47,7 @@ const MetaMaskLogin = ({ setWalletAddress }) => {
     <button onClick={connectWallet} style={{marginLeft:"30px"}}  className="button">
           <div style={{ display: "flex", alignItems: "center", fontWeight: "bold", gap: "9px" }}>
                   <img style={{ width: "30px", borderRadius: "50%" }} src={"https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/MetaMask_Fox.svg/1200px-MetaMask_Fox.svg.png"} />
-                  Conectar MetaMask
+                  Connect with MetaMask
                 </div>
     </button>
   );

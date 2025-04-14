@@ -117,12 +117,28 @@ export default function RugHistory() {
     "RuffRocket"
   ];
 
-  // Estados
+
+
+  // Estados con valores iniciales desde localStorage
   const [lastRuns, setLastRuns] = useState<RunItem[]>([]);
-  const [totalProfit, setTotalProfit] = useState(13047);
-  const [successfulRuns, setSuccessfulRuns] = useState(66); // Ahora es estado
+  const [totalProfit, setTotalProfit] = useState(() => {
+    const savedProfit = localStorage.getItem('totalProfit');
+    return savedProfit ? parseInt(savedProfit, 10) : 13047;
+  });
+  const [successfulRuns, setSuccessfulRuns] = useState(() => {
+    const savedRuns = localStorage.getItem('successfulRuns');
+    return savedRuns ? parseInt(savedRuns, 10) : 66;
+  });
   const [showArrow, setShowArrow] = useState(false);
-  const [usedCoinNames, setUsedCoinNames] = useState<string[]>([]);
+  const [usedCoinNames, setUsedCoinNames] = useState<string[]>(() => {
+    const savedUsedCoins = localStorage.getItem('usedCoinNames');
+    return savedUsedCoins ? JSON.parse(savedUsedCoins) : [];
+  });
+
+  // Función para guardar en localStorage
+  const saveToLocalStorage = (key: string, value: any) => {
+    localStorage.setItem(key, JSON.stringify(value));
+  };
 
   // Función para obtener una imagen de la API
   const fetchMemeImage = async (): Promise<string> => {
@@ -147,6 +163,7 @@ export default function RugHistory() {
     const availableCoins = coinNames.filter((name) => !usedCoinNames.includes(name));
     if (availableCoins.length === 0) {
       setUsedCoinNames([]);
+      saveToLocalStorage('usedCoinNames', []);
       return null;
     }
 
@@ -154,7 +171,11 @@ export default function RugHistory() {
     const imageUrl = await fetchMemeImage();
     const { percentage, isPositive } = generateRandomPercentage();
 
-    setUsedCoinNames((prev) => [...prev, selectedCoin]);
+    setUsedCoinNames((prev) => {
+      const newUsedCoins = [...prev, selectedCoin];
+      saveToLocalStorage('usedCoinNames', newUsedCoins);
+      return newUsedCoins;
+    });
 
     return {
       imageUrl,
@@ -172,10 +193,18 @@ export default function RugHistory() {
 
     // Incrementar totalProfit (entre 1 y 5 SOL)
     const increment = Math.floor(Math.random() * 5) + 1;
-    setTotalProfit((prev) => prev + increment);
+    setTotalProfit((prev) => {
+      const newTotal = prev + increment;
+      saveToLocalStorage('totalProfit', newTotal);
+      return newTotal;
+    });
 
     // Incrementar successfulRuns
-    setSuccessfulRuns((prev) => prev + 1);
+    setSuccessfulRuns((prev) => {
+      const newRuns = prev + 1;
+      saveToLocalStorage('successfulRuns', newRuns);
+      return newRuns;
+    });
 
     // Mostrar flecha y ocultarla después de 1 segundo
     setShowArrow(true);
@@ -201,7 +230,7 @@ export default function RugHistory() {
 
     initializeRuns();
 
-    const interval = setInterval(updateRuns, 4000);
+    const interval = setInterval(updateRuns, 60000); // Actualizar cada 1 minuto (60000 ms)
 
     return () => clearInterval(interval);
   }, []);
@@ -210,47 +239,46 @@ export default function RugHistory() {
   const formattedTotalProfit = totalProfit.toLocaleString();
 
   return (
-
     <>
-    <NavBar/>
-    <div className='dashboard__banner'>
-    <h4>Everything our users have earned by rugpulling innocent people 🚀</h4>
-    </div>
-    <div className="dashboard">
-      <div className="dashboard-grid">
-        <div className="card cardMove profit-card">
-          <div className="card-label">Total Profit</div>
-          <div className="card-value">
-            {formattedTotalProfit} SOL
-            {showArrow && <span className="profit-arrow">↑</span>}
+      <NavBar />
+      <div className="dashboard__banner">
+        <h4>Everything our users have earned by rugpulling innocent people 🚀</h4>
+      </div>
+      <div className="dashboard">
+        <div className="dashboard-grid">
+          <div className="card cardMove profit-card">
+            <div className="card-label">Total Profit</div>
+            <div className="card-value">
+              {formattedTotalProfit} SOL
+              {showArrow && <span className="profit-arrow">↑</span>}
+            </div>
+          </div>
+          <div className="card cardMove runs-card">
+            <div className="card-label">Successful Rugs</div>
+            <div className="card-value">{successfulRuns}</div>
           </div>
         </div>
-        <div className="card cardMove runs-card">
-          <div className="card-label">Successful Rugs</div>
-          <div className="card-value">{successfulRuns}</div>
-        </div>
-      </div>
 
-      <div className="card last-runs-card">
-        <div className="card-label">Last Rugs</div>
-        <div className="runs-list">
-          {lastRuns.map((run, index) => (
-            <div className="run-item" key={index}>
-              <div className="run-icon">
-                <img src={run.imageUrl} alt="Meme" className="icon-image" />
+        <div className="card last-runs-card">
+          <div className="card-label">Last Rugs</div>
+          <div className="runs-list">
+            {lastRuns.map((run, index) => (
+              <div className="run-item" key={index}>
+                <div className="run-icon">
+                  <img src={run.imageUrl} alt="Meme" className="icon-image" />
+                </div>
+                <div className="run-details">
+                  <div className="run-title">{run.title}</div>
+                  <div className="run-subtitle">{run.subtitle}</div>
+                </div>
+                <div className={`run-percentage ${run.isPositive ? 'positive' : 'negative'}`}>
+                  {run.percentage}
+                </div>
               </div>
-              <div className="run-details">
-                <div className="run-title">{run.title}</div>
-                <div className="run-subtitle">{run.subtitle}</div>
-              </div>
-              <div className={`run-percentage ${run.isPositive ? 'positive' : 'negative'}`}>
-                {run.percentage}
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
-    </div>
     </>
   );
 }

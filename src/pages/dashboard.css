@@ -30,19 +30,20 @@
   /* Card styling */
   .menu-card {
     position: relative; /* Needed for pseudo-element positioning */
-    background-color: rgba(31, 41, 55, 0.6);
+    background-color: rgba(31, 41, 55, 0.289);
     backdrop-filter: blur(8px);
     text-align: center;
-    border: 2px solid transparent; /* Transparent border to reserve space */
+    
     border-radius: 12px;
-    height: 230px;
+    height: 190px;
     padding: 24px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: none !important;
+    box-shadow: 0 4px 6px #210be2c6;
     transition: background-color 0.2s ease;
     overflow: hidden; /* Prevent glow from spilling outside */
   }
@@ -50,7 +51,7 @@
   .menu-card::before {
     content: '';
     position: absolute;
-    inset: -4px; /* Slightly larger than the card to create the border effect */
+    inset: 0px; /* Slightly larger than the card to create the border effect */
     border-radius: 14px; /* Match the card's border-radius + border width */
     background: linear-gradient(
       45deg,
@@ -77,6 +78,7 @@
     }
   }
   
+  
   /* Mask the inner part to keep glow only on the border */
   .menu-card::after {
     content: '';
@@ -85,9 +87,39 @@
     left: 2px;
     right: 2px;
     bottom: 2px;
-    background: rgba(31, 41, 55, 0.97); 
+    background: rgb(31, 41, 55); /* Match the card background */
     border-radius: 10px; /* Slightly smaller radius to fit inside the border */
     z-index: -1; /* Behind the content but above the glow */
+     
+  }
+
+  .cardOne::after{
+    background-image: url('https://images.cointelegraph.com/cdn-cgi/image/format=auto,onerror=redirect,quality=90,width=717/https://s3.cointelegraph.com/uploads/2025-04/019614ed-39f4-7961-a064-7c5f9c4632ba');
+    background-size: cover; /* Opcional, ajusta la imagen */
+    opacity: 0.95; /* Ajusta la transparencia (0 = completamente transparente, 1 = opaco) */
+    filter: brightness(0.1);
+  }
+
+  .cardTwo::after{
+    background-image: url('https://images.cointelegraph.com/cdn-cgi/image/format=auto,onerror=redirect,quality=90,width=1434/https://s3.cointelegraph.com/uploads/2023-06/3c31e5c4-7890-426c-a0f5-86d85abd0d99.JPG');
+
+    background-size: cover; /* Opcional, ajusta la imagen */
+    opacity: 0.95; /* Ajusta la transparencia (0 = completamente transparente, 1 = opaco) */
+    filter: brightness(0.1);
+  }
+
+  .cardThree::after{
+    background-image: url('https://images.cointelegraph.com/cdn-cgi/image/format=auto,onerror=redirect,quality=90,width=717/https://s3.cointelegraph.com/uploads/2023-06/43a65d69-bf63-41bf-9b5a-f4ed3c1f91ba.JPG');
+    background-size: cover; /* Opcional, ajusta la imagen */
+    opacity: 0.95; /* Ajusta la transparencia (0 = completamente transparente, 1 = opaco) */
+    filter: brightness(0.1);
+  }
+
+  .cardFour::after{
+    background-image: url('https://static.vecteezy.com/system/resources/previews/001/219/906/non_2x/graphic-of-artificial-intelligence-trader-head-vector.jpg');
+    background-size: cover; /* Opcional, ajusta la imagen */
+    opacity: 0.95; /* Ajusta la transparencia (0 = completamente transparente, 1 = opaco) */
+    filter: brightness(0.1);
   }
   
   .menu-card:hover {

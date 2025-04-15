@@ -4,6 +4,14 @@
   box-sizing: border-box;
   font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
+
+html {
+  width: 100% !important;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .connect-button{
   background-color: #03040890;
   color: white;
@@ -11,11 +19,16 @@
   border-radius: 5px;
   border-color: #6645ed;
 }
-html {
-  width: 100% !important;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+
+
+.navBar svg:hover{
+  color: #6952c4;
+  
+
+}
+
+.wallet-info{
+  font-size: 14px;
 }
 
 body {

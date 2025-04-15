@@ -11,11 +11,12 @@ export default function Dashboard() {
   return (
     <>
       <NavBar />
+      <div className="stars-background"></div>
       <div className="menu-container">
         <div className="menu-grid">
         
           <Link to="/create" className="card-link">
-            <div className="menu-card">
+            <div className="menu-card cardOne">
               <div className="icon-container purple">
                 <AddCircleIcon className="icon"/>
               </div>
@@ -26,7 +27,7 @@ export default function Dashboard() {
 
         
           <Link to="/rugHistory" className="card-link">
-            <div className="menu-card">
+            <div className="menu-card cardTwo">
               <div className="icon-container blue">
                 <AutoGraphIcon className="icon"/>
               </div>
@@ -37,7 +38,7 @@ export default function Dashboard() {
 
          
           <Link to="/about" className="card-link">
-            <div className="menu-card">
+            <div className="menu-card cardThree">
               <div className="icon-container blue">
                 <AssessmentIcon className="icon" />
               </div>
@@ -48,7 +49,7 @@ export default function Dashboard() {
 
       
           <Link to="/info" className="card-link">
-            <div className="menu-card">
+            <div className="menu-card cardFour">
               <div className="icon-container blue">
                 <InfoIcon className="icon" />
               </div>
